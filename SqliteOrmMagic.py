@@ -9,11 +9,11 @@ from sqlite3 import Error
 
 def execute_query(connection, query, params):
     """ 
-    Функция для записи 
-    в sql базу 
-    connection : соединение с БД
-    query: str строка запроса SQLite
-    params: list параметры запроса
+    Function for recording
+    to sql database
+    connection : database connection
+    query: str SQLite query string
+    params: list request parameters
     """
     res = None
     cursor = connection.cursor()
@@ -35,11 +35,11 @@ def execute_query(connection, query, params):
 
 def execute_query_select(connection, query, params):
     """ 
-    Функция для чтения из sql базы 
-    возвращает список кортежей 
-    connection : соединение с БД
-    query: str строка запроса SQLite
-    params: list параметры запроса
+    Function for reading from sql database
+    returns a list of tuples
+    connection : database connection
+    query: str SQLite query string
+    params: list request parameters
     """
     res = None
     cursor = connection.cursor()
@@ -73,12 +73,12 @@ class SQLiteDB():
     def create_table(self, table:str, list_query_params:list):
         connection = create_connection(self.DBNAME)
         """
-        Функция для создания таблицы
-        table: str имя таблицы
-        list_query_params: list параметры запроса
-        Пример как передаются имена столбцов в таблицу, списком кортежей
+        Function to create a table
+        table: str table name
+        list_query_params: list query parameters
+        An example of how column names are passed to a table by a list of tuples
         list_query_params = [
-        ('from_user_id', 'INTEGER UNIQUE'),     здесь должны быть уникальные значения
+        ('from_user_id', 'INTEGER UNIQUE'),   must be unique values ​​here
         ('from_user_username', 'TEXT'),
         ('from_user_firstname', 'TEXT'),
         ('regtime', 'INTEGER')
@@ -95,12 +95,12 @@ class SQLiteDB():
 
     def find_elements_in_column(self, table_name:str, key_name:str, column_name:str):
         """
-        функция поиска в базе данных 
-        по значению ячейки с указанием имени колонки
-        возвращает список кортежей одной строки таблицы
-        table_name: str имя таблицы
-        key_name: str имя колонки
-        column_name: str имя ячейки
+        database search function
+        by cell value with column name
+        returns a list of tuples of one table row
+        table_name: str table name
+        key_name: str column name
+        column_name: str cell name
         """
         connection = create_connection(self.DBNAME)
         query = f"""SELECT * 
@@ -113,12 +113,12 @@ class SQLiteDB():
     
     def find_elements_by_keyword(self, table_name:str, key_name:str, column_name:str):
         """
-        функция поиска в базе данных 
-        ищет совпадения в колонке по строке
-        возвращает список кортежей
-        table_name: str имя таблицы
-        key_name: str имя колонки
-        column_name: str имя ячейки
+        database search function
+        searches for matches in a column line by line
+        returns a list of tuples
+        table_name: the name of the str table
+        key_name: the name of the str column
+        column_name: the name of the cell str
         """
         connection = create_connection(self.DBNAME)
 
@@ -133,13 +133,13 @@ class SQLiteDB():
     
     def upd_element_in_column(self, table_name:str, upd_par_name: str, key_par_name: str, upd_column_name: str, key_column_name:str):
         """
-        функция обновления в базе данных 
-        по значению ячейки с указанием имени колонки
-        table_name: str имя таблицы
-        upd_par_name: str имя параметра для обновления
-        key_par_name: str имя параметра для поиска
-        upd_column_name: str имя колонки для обновления
-        key_column_name: str имя колонки для поиска
+        database update function
+        by cell value with column name
+        table_name: str table name
+        upd_par_name: str name of the parameter to update
+        key_par_name: str name of the parameter to search
+        upd_column_name: str name of the column to update
+        key_column_name: str name of the column to search
         """
         connection = create_connection(self.DBNAME)
         query = f"""
@@ -153,12 +153,13 @@ class SQLiteDB():
     
     def ins_unique_row(self, table_name:str, list_query_params:list):
         """
-        функция вставки строчки в базу данных 
-        уникального значения с указанием имени колонки
-        если был флаг UNIQUE при создании колонки в таблице БД
-        table_name: str имя таблицы
-        list_query_params: list список кортежей одной строки таблицы
-        Пример загрузки списка параметров 
+        database insertion function
+        unique value with column name
+        if there was a UNIQUE flag when creating 
+        a column in a database table
+        table_name: str table name
+        list_query_params: list list of tuples of one table row
+        Parameter List Loading Example 
         list_query_params = [
         ('from_user_id', '123'),
         ('from_user_username', 'vasya'),
@@ -197,7 +198,7 @@ class SQLiteDB():
 #     ('from_user_firstname', 'petrov'),
 #     ('regtime', '1234568')
 #     ]   
-#     # db.ins_unique_row(table_name='users', list_query_params=list_query_params)
+#     db.ins_unique_row(table_name='users', list_query_params=list_query_params)
 #     res = db.find_elements_by_keyword(table_name='users', key_name='2023-06', column_name='reg_data')
 
 #     for i in res:
