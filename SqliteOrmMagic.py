@@ -99,8 +99,8 @@ class SQLiteDB():
         by cell value with column name
         returns a list of tuples of one table row
         table_name: str table name
-        key_name: str column name
-        column_name: str cell name
+        key_name: str key name
+        column_name: str column name
         """
         connection = create_connection(self.DBNAME)
         query = f"""SELECT * 
@@ -116,9 +116,9 @@ class SQLiteDB():
         database search function
         searches for matches in a column line by line
         returns a list of tuples
-        table_name: the name of the str table
-        key_name: the name of the str column
-        column_name: the name of the cell str
+        table_name: str the name of the table
+        key_name: str keyword string
+        column_name: str column name
         """
         connection = create_connection(self.DBNAME)
 
