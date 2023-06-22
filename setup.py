@@ -13,7 +13,7 @@ setup(
     description="Facilitates the complex syntax of SQL queries through the use of standard commands for reading / writing to the SQlite3 database in Python program",
     long_description=readme,
     long_description_content_type="text/markdown",
-    url="https://github.com/your_package/homepage/",
+    url="https://github.com/Practic1984/SqliteOrmMagic.git",
     packages=find_packages(),
     install_requires=requirements,
     classifiers=[
