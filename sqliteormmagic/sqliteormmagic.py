@@ -1,5 +1,5 @@
 # python3.9.16
-# version 0.0.6
+# version 0.0.7
 """
 The script allows you to access the SQlite3 database 
 through a function, which is more convenient than 
