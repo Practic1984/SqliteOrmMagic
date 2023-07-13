@@ -1,5 +1,5 @@
 # python3.9.16
-# version 0.0.7
+# version 0.0.6
 """
 The script allows you to access the SQlite3 database 
 through a function, which is more convenient than 
@@ -72,6 +72,7 @@ class SQLiteDB():
     def __init__(self, DBNAME):
         self.DBNAME = DBNAME
 
+
     def create_table(self, table:str, list_query_params:list):
         connection = create_connection(self.DBNAME)
         """
@@ -95,6 +96,27 @@ class SQLiteDB():
         execute_query(connection=connection, query=query, params=[])
         connection.close()
 
+
+    def find_table_or_column(self, table_name:str, column_name:str):
+        """
+        the function is designed to search 
+        for all values ​​by the column name key
+        example: column_name = 'from_user_id' 
+        if you need to find several columns, 
+        just specify them separated by commas, 
+        example: column_name = 'from_user_id, reg_data'
+        to search for all columns, specify 
+        example: column_name = '*'
+        """
+        connection = create_connection(self.DBNAME)
+        query = f"""SELECT {column_name} 
+                FROM {table_name}
+                """ 
+        list_of_tuple = execute_query_select(connection, query=query, params=[])
+        connection.close()
+        return list_of_tuple
+    
+
     def find_elements_in_column(self, table_name:str, key_name:str, column_name:str):
         """
         database search function
@@ -113,6 +135,7 @@ class SQLiteDB():
         connection.close()
         return list_of_tuple
     
+
     def find_elements_by_keyword(self, table_name:str, key_name:str, column_name:str):
         """
         database search function
@@ -133,6 +156,7 @@ class SQLiteDB():
         connection.close()
         return list_of_tuple
     
+    
     def upd_element_in_column(self, table_name:str, upd_par_name: str, key_par_name: str, upd_column_name: str, key_column_name:str):
         """
         database update function
@@ -152,7 +176,8 @@ class SQLiteDB():
         print(query)
         execute_query(connection, query=query, params=[key_par_name, key_column_name])
         connection.close()
-    
+
+
     def ins_unique_row(self, table_name:str, list_query_params:list):
         """
         database insertion function
@@ -188,7 +213,6 @@ class SQLiteDB():
         """.format(table=table_name, text_params=text_params, text_questions=text_questions)
 
         execute_query(connection=connection, query=query, params=list_value)
-        connection.close()
 
         connection.close()
 
